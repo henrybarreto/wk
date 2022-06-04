@@ -25,12 +25,13 @@ WK is a CLI tool to create aliases for directories ( workspaces ).
 You can configurate your workspaces through a configuration file locate on `~/.wk.ron`.
 
 ```ron
-{
-    "go": "~/Documents/Projects/Go",
-    "rust": "~/Documents/Projects/Rust",
-    "typescript": "~/Documents/Projects/Typescript",
-    "java": "~/Documents/Projects/Java"
-}
-
+(
+    workspaces: [
+        ("go", "~/Documents/Projects/Go"),
+        ("rust", "~/Documents/Projects/Rust"),
+        ("typescript", "~/Documents/Projects/Typescript"),
+        ("java", "~/Documents/Projects/Java"),
+    ]
+)
 ```
 

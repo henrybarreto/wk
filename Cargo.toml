@@ -5,6 +5,9 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 
+[dependencies]
+ron = "0.7.0"
+serde = "1.0.137"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
