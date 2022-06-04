@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-WK is a CLI tool to create aliases for directories ( workspaces ).
+WK is a CLI tool to create, manager and access workspaces.
 </p>
 
 ## How to use

@@ -1,6 +1,6 @@
 [package]
 name = "wk"
-description = "WK is a CLI tool to create aliases for directory ( workspace )."
+description = "WK is a CLI tool to create, manager and access workspaces"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
@@ -8,6 +8,7 @@ license = "MIT"
 [dependencies]
 ron = "0.7.0"
 serde = "1.0.137"
+clap = { version = "3.1.18", features = ["derive"] }
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
