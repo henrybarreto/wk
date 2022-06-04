@@ -1,6 +1,6 @@
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/23109089/171970560-b27bd17f-1d7f-4d8f-aa42-7d51e0081d7e.png#gh-dark-mode-only" alt="WK's logo" />
-    <img src="https://user-images.githubusercontent.com/23109089/171970710-a72e7506-9e55-4f1c-8089-bd331cd68aa4.png#gh-light-mode-only" alt="WK's logo" />
+    <img src="https://user-images.githubusercontent.com/23109089/171970710-a72e7506-9e55-4f1c-8089-bd331cd68aa4.png#gh-dark-mode-only" alt="WK's dark logo" />
+    <img src="https://user-images.githubusercontent.com/23109089/171970769-e07ffa29-5a19-4893-9610-8c1a08e8972e.png#gh-light-mode-only" alt="WK's light logo" />
 </p>
 
 <p align="center">
