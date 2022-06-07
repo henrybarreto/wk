@@ -3,6 +3,7 @@
     <img src="https://user-images.githubusercontent.com/23109089/171970769-e07ffa29-5a19-4893-9610-8c1a08e8972e.png#gh-light-mode-only" alt="WK's light logo" />
 </p>
 
+
 <p align="center">
 WK is a CLI tool to create, manager and access workspaces.
 </p>
@@ -35,3 +36,5 @@ You can configurate your workspaces through a configuration file locate on `~/.w
 )
 ```
 
+
+<p align="center"><strong>IT DOESN'T NOT WORK! I NEED FIND A WAY TO CHANGE THE CURRENT DIRECORY.</strong></p>
