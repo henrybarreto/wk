@@ -11,12 +11,15 @@ WK is a CLI tool to create, manager and access workspaces.
 ## How to use
 
 ### Go to workspace
+It is worth to say that `wk` does not change the directory itself. Currently, it just “split out” a `cd` command with the path to the workspace informed, being necessary to use a shell script to get that output, execute the `cd` command and open the shell into the directory.
+
 ```wk go```
 
 ### Save a workspace
 ```wk --save go ~/Documents/Projects/Go```
 
 ### Show saved workspaces
+> not implemented yet
 ```wk --list```
 
 ### Show usage
@@ -26,15 +29,5 @@ WK is a CLI tool to create, manager and access workspaces.
 You can configurate your workspaces through a configuration file locate on `~/.wk.ron`.
 
 ```ron
-(
-    workspaces: [
-        ("go", "~/Documents/Projects/Go"),
-        ("rust", "~/Documents/Projects/Rust"),
-        ("typescript", "~/Documents/Projects/Typescript"),
-        ("java", "~/Documents/Projects/Java"),
-    ]
-)
+(workspaces:[(name:"wk",path:"<PATH TO WK>")])
 ```
-
-
-<p align="center"><strong>IT DOESN'T NOT WORK! I NEED FIND A WAY TO CHANGE THE CURRENT DIRECORY.</strong></p>

@@ -3,9 +3,15 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io;
 
-const CONFIGURATION_FILE: &str = "/.wk.ron";
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Workspace {
+    pub name: String,
+    pub path: String,
+}
 
-pub type Workspace = (String, String);
+// TODO: find a way to make this generic.
+const CONFIGURATION_PATH: &str = "/home/<USER>";
+const CONFIGURATION_FILE: &str = "/.wk.ron";
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Configuration {
@@ -13,16 +19,27 @@ pub struct Configuration {
 }
 
 impl Configuration {
-    pub fn load_file(path: &str) -> Result<Configuration, ron::error::Error> {
+    pub fn new() -> Configuration {
+        if let Ok(configuration) = Self::load_file() {
+            configuration
+        } else {
+            Configuration {
+                workspaces: Vec::new(),
+            }
+        }
+    }
+
+    pub fn load_file() -> Result<Configuration, ron::error::Error> {
         Configuration::from_str(&fs::read_to_string(format!(
             "{}{}",
-            path, CONFIGURATION_FILE
+            CONFIGURATION_PATH, CONFIGURATION_FILE
         ))?)
     }
 
-    pub fn save_file(&self, path: &str) -> Result<(), io::Error> {
+    pub fn save_file(&self) -> Result<(), io::Error> {
+        print!("{:#?}", Configuration::to_str(&self).unwrap());
         fs::write(
-            format!("{}{}", path, CONFIGURATION_FILE),
+            format!("{}{}", CONFIGURATION_PATH, CONFIGURATION_FILE),
             Configuration::to_str(&self).unwrap(),
         )
     }

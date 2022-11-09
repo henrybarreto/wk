@@ -1,8 +1,1 @@
-(
-    workspaces: [
-        ("go", "~/Documents/Projects/Go"),
-        ("rust", "~/Documents/Projects/Rust"),
-        ("typescript", "~/Documents/Projects/Typescript"),
-        ("java", "~/Documents/Projects/Java"),
-    ]
-)
+(workspaces:[(name:"wk",path:"<PATH TO WK>")])
