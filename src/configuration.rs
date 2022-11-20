@@ -10,7 +10,7 @@ pub struct Workspace {
 }
 
 // TODO: find a way to make this generic.
-const CONFIGURATION_PATH: &str = "/home/<USER>";
+const CONFIGURATION_PATH: &str = "/home/henry";
 const CONFIGURATION_FILE: &str = "/.wk.ron";
 
 #[derive(Serialize, Deserialize, Debug)]

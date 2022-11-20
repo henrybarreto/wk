@@ -8,7 +8,7 @@ mod workspace;
 
 pub fn output(path: &str) {
     io::stdout()
-        .write(format!("cd {}\n", path).as_bytes())
+        .write(format!("{}\n", path).as_bytes())
         .unwrap();
 }
 

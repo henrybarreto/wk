@@ -8,25 +8,54 @@
 WK is a CLI tool to create, manager and access workspaces.
 </p>
 
+## How to install
+
+First, clone the repository:
+
+```sh
+git clone https://github.com/henrybarreto/wk.git
+```
+
+Go to the repository folder:
+
+```sh
+cd wk
+```
+
+Then, install the wk through the script
+    
+```sh
+./scripts/install.sh
+```
+
 ## How to use
 
-### Go to workspace
-It is worth to say that `wk` does not change the directory itself. Currently, it just “split out” a `cd` command with the path to the workspace informed, being necessary to use a shell script to get that output, execute the `cd` command and open the shell into the directory.
+**Save a workspace**
 
-```wk go```
+```sh
+wk --save go ~/Documents/Projects/Go
+```
 
-### Save a workspace
-```wk --save go ~/Documents/Projects/Go```
+**Go to a saved workspace**
 
-### Show saved workspaces
+```sh
+wk go
+```
+> It is worth to say that `wk` does not change the directory itself. Currently, it just “split out” a `cd` command with the path to the workspace informed, being necessary to use a shell script to get that output, execute the `cd` command and open the shell into the directory.
+
+**Show saved workspaces**
+```sh
+wk --list
+```
 > not implemented yet
-```wk --list```
 
-### Show usage
-```wk --help```
+**Show usage**
+```sh
+wk --help
+```
 
-### How to configurate
-You can configurate your workspaces through a configuration file locate on `~/.wk.ron`.
+### How to configure
+When you save a workspace, the file `~/.wk.ron` is created/populated with that data, but you can also create/edit this file manually.
 
 ```ron
 (workspaces:[(name:"wk",path:"<PATH TO WK>")])

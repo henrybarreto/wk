@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+command=$(wk.backend $@)
+if [ "$command" != "" ]; then
+    eval $command
+    $SHELL
+fi
+
