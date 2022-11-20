@@ -1,9 +1,8 @@
-use ron;
 use serde::{Deserialize, Serialize};
 use std::io;
 use std::{env, fs};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct Workspace {
     pub name: String,
     pub path: String,
@@ -18,7 +17,7 @@ pub struct Configuration {
 
 impl Configuration {
     pub fn new() -> Configuration {
-        if let Ok(configuration) = Self::load_file() {
+        if let Ok(configuration) = Self::new_from_file() {
             configuration
         } else {
             Configuration {
@@ -27,24 +26,24 @@ impl Configuration {
         }
     }
 
-    pub fn load_file() -> Result<Configuration, ron::error::Error> {
-        Configuration::from_str(&fs::read_to_string(format!(
-            "{}{}",
-            env::var("HOME").unwrap(),
-            CONFIGURATION_FILE
-        ))?)
-    }
+    pub fn new_from_file() -> Result<Configuration, ron::error::Error> {
+        let mut path = String::new();
+        path.push_str(&env::var("HOME").unwrap());
+        path.push_str(CONFIGURATION_FILE);
 
-    pub fn save_file(&self) -> Result<(), io::Error> {
-        print!("{:#?}", Configuration::to_str(&self).unwrap());
-        fs::write(
-            format!("{}{}", env::var("HOME").unwrap(), CONFIGURATION_FILE),
-            Configuration::to_str(&self).unwrap(),
-        )
+        Configuration::from_str(&fs::read_to_string(path)?)
     }
 
     pub fn from_str(s: &str) -> Result<Configuration, ron::error::Error> {
-        ron::from_str::<Configuration>(s)
+        ron::from_str::<Self>(s)
+    }
+
+    pub fn save_to_file(&self) -> Result<(), io::Error> {
+        let mut path = String::new();
+        path.push_str(&env::var("HOME").unwrap());
+        path.push_str(CONFIGURATION_FILE);
+
+        fs::write(path, self.to_str().unwrap())
     }
 
     pub fn to_str(&self) -> Result<String, ron::error::Error> {

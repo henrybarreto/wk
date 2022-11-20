@@ -1,32 +1,33 @@
-use crate::configuration::Configuration;
-use crate::configuration::Workspace as WorkspaceConfiguration;
+use crate::configuration::{Configuration, Workspace};
 
-pub fn go(name: &str) -> Option<String> {
-    for workspace in Configuration::new().workspaces.iter() {
-        if workspace.name == name {
-            return Some(workspace.path.clone());
-        }
+pub fn go(name: &str) -> Option<Workspace> {
+    if let Ok(configuration) = Configuration::new_from_file() {
+        configuration
+            .workspaces
+            .iter()
+            .find(|workspace| workspace.name == name)
+            .cloned()
+    } else {
+        None
     }
-
-    return None;
 }
 
 pub fn save(name: &str, path: &str) {
-    let mut found: bool = false;
-    let mut configuration = Configuration::new();
-    for workspace in configuration.workspaces.iter() {
-        if workspace.name == name {
-            found = true;
-        }
-    }
-
-    if !found {
-        configuration.workspaces.push(WorkspaceConfiguration {
+    if let Ok(mut configuration) = Configuration::new_from_file() {
+        configuration.workspaces.push(Workspace {
             name: name.to_string(),
             path: path.to_string(),
         });
 
-        configuration.save_file().unwrap();
+        configuration.save_to_file().unwrap();
+    } else {
+        let mut configuration = Configuration::new();
+        configuration.workspaces.push(Workspace {
+            name: name.to_string(),
+            path: path.to_string(),
+        });
+
+        configuration.save_to_file().unwrap();
     }
 }
 

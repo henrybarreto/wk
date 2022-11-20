@@ -1,23 +1,14 @@
-use std::io;
-use std::io::Write;
-
 use clap::{Arg, Command};
 
 mod configuration;
 mod workspace;
-
-pub fn output(path: &str) {
-    io::stdout()
-        .write(format!("{}\n", path).as_bytes())
-        .unwrap();
-}
 
 fn main() {
     let command = Command::new("wk")
         .version("0.1.0")
         .about("WK is a CLI tool to create, manager and access workspaces")
         .author("Henry Barreto <me@henrybarreto.dev>")
-        .arg(Arg::new("workspace").help("Workspace's name").index(1))
+        .arg(Arg::new("workspace").help("Workspaces name").index(1))
         .arg(
             Arg::new("save")
                 .short('s')
@@ -39,8 +30,8 @@ fn main() {
     let matches = command.get_matches();
     if matches.is_present("workspace") {
         let workspace = matches.value_of("workspace").unwrap();
-        if let Some(path) = workspace::go(workspace) {
-            output(&path);
+        if let Some(found) = workspace::go(workspace) {
+            print!("{}", found.path);
         }
     } else if matches.is_present("save") {
         let save = matches
