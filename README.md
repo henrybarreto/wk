@@ -54,7 +54,7 @@ wk --list
 wk --help
 ```
 
-### How to configure
+## How to configure
 When you save a workspace, the file `~/.wk.ron` is created/populated with that data, but you can also create/edit this file manually.
 
 ```ron
