@@ -5,7 +5,7 @@
 
 
 <p align="center">
-WK is a CLI tool to create, manager and access workspaces.
+WK is a CLI tool to create, manage and access workspaces.
 </p>
 
 ## How to install
