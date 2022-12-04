@@ -5,7 +5,7 @@ mod workspace;
 
 fn main() {
     let command = Command::new("wk")
-        .version("0.1.0")
+        .version("0.1.1")
         .about("WK is a CLI tool to create, manager and access workspaces")
         .author("Henry Barreto <me@henrybarreto.dev>")
         .arg(Arg::new("workspace").help("Workspaces name").index(1))
