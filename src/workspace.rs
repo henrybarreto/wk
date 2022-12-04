@@ -1,14 +1,26 @@
 use crate::configuration::{Configuration, Workspace};
+use std::process::Command;
 
-pub fn go(name: &str) -> Option<Workspace> {
+pub fn go(name: &str) {
     if let Ok(configuration) = Configuration::new_from_file() {
-        configuration
+        let workspace = configuration
             .workspaces
             .iter()
-            .find(|workspace| workspace.name == name)
-            .cloned()
-    } else {
-        None
+            .find(|workspace| workspace.name == name);
+
+        if let Some(workspace) = workspace {
+            println!("Going to {}", workspace.name);
+            Command::new("sh")
+                .arg("-c")
+                .arg(format!("cd {} && exec $SHELL", workspace.path))
+                .spawn()
+                .expect("Failed to execute process")
+                .wait_with_output()
+                .expect("Failed to wait for the exit");
+            println!("Exiting from {}", workspace.name)
+        } else {
+            println!("Workspace not found");
+        }
     }
 }
 

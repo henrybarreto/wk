@@ -30,9 +30,7 @@ fn main() {
     let matches = command.get_matches();
     if matches.is_present("workspace") {
         let workspace = matches.value_of("workspace").unwrap();
-        if let Some(found) = workspace::go(workspace) {
-            print!("{}", found.path);
-        }
+        workspace::go(workspace)
     } else if matches.is_present("save") {
         let save = matches
             .values_of("save")

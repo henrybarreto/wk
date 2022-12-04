@@ -9,6 +9,7 @@ WK is a CLI tool to create, manage and access workspaces.
 </p>
 
 ## How to install
+> In order to install `wk`, you need the `cargo` installed.
 
 First, clone the repository:
 
@@ -22,10 +23,10 @@ Go to the repository folder:
 cd wk
 ```
 
-Then, install the wk through the script
+Then, install it:
     
 ```sh
-./scripts/install.sh
+make install
 ```
 
 ## How to use
@@ -41,7 +42,6 @@ wk --save go ~/Documents/Projects/Go
 ```sh
 wk go
 ```
-> It is worth to say that `wk` does not change the directory itself. Currently, it just “split out” a `cd` command with the path to the workspace informed, being necessary to use a shell script to get that output, execute the `cd` command and open the shell into the directory.
 
 **Show saved workspaces**
 ```sh
