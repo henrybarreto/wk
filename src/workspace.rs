@@ -26,13 +26,21 @@ pub fn go(name: &str) {
 
 pub fn save(name: &str, path: &str) {
     if let Ok(mut configuration) = Configuration::new_from_file() {
-        configuration.workspaces.push(Workspace {
-            name: name.to_string(),
-            path: path.to_string(),
-        });
+        if let Some(_) = configuration
+            .workspaces
+            .iter()
+            .find(|workspace| workspace.name == name)
+        {
+            println!("Workspace already exists");
+        } else {
+            configuration.workspaces.push(Workspace {
+                name: name.to_string(),
+                path: path.to_string(),
+            });
 
-        configuration.save_to_file().unwrap();
-        println!("Workspace {} saved on paht \"{}\"", name, path);
+            configuration.save_to_file().unwrap();
+            println!("Workspace {} saved on path \"{}\"", name, path);
+        }
     } else {
         let mut configuration = Configuration::new();
         configuration.workspaces.push(Workspace {
