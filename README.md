@@ -43,6 +43,12 @@ wk --save go ~/Documents/Projects/Go
 wk go
 ```
 
+**Remove a saved workspace**
+
+```sh
+wk --remove go
+```
+
 **Show saved workspaces**
 ```sh
 wk --list

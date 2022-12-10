@@ -41,7 +41,28 @@ pub fn save(name: &str, path: &str) {
         });
 
         configuration.save_to_file().unwrap();
-        println!("Workspace {} saved on paht \"{}\"", name, path);
+        println!("Workspace {} saved to path \"{}\"", name, path);
+    }
+}
+
+pub fn remove(name: &str) {
+    if let Ok(mut configuration) = Configuration::new_from_file() {
+        if let Some(_) = configuration
+            .workspaces
+            .iter()
+            .find(|workspace| workspace.name == name)
+        {
+            configuration
+                .workspaces
+                .retain(|workspace| workspace.name != name);
+            configuration.save_to_file().unwrap();
+
+            println!("Workspace {} removed", name);
+        } else {
+            println!("Workspace not found");
+        }
+    } else {
+        println!("Workspace not found");
     }
 }
 

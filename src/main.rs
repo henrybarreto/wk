@@ -23,7 +23,16 @@ fn main() {
                 .help("Save a workspace")
                 .takes_value(true)
                 .multiple_occurrences(true)
-                .value_names(&["NAME", "PATH"])
+                .value_names(&["WOKRSPACE", "PATH"])
+                .exclusive(true),
+        )
+        .arg(
+            Arg::new("remove")
+                .short('r')
+                .long("remove")
+                .help("remove a workspace")
+                .takes_value(true)
+                .value_name("WORKSPACE")
                 .exclusive(true),
         )
         .arg(
@@ -45,6 +54,9 @@ fn main() {
             .into_iter()
             .collect::<Vec<&str>>();
         workspace::save(save[0], save[1]);
+    } else if matches.is_present("remove") {
+        let remove = matches.value_of("remove").unwrap();
+        workspace::remove(remove)
     } else if matches.is_present("list") {
         workspace::list()
     }
