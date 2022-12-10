@@ -32,6 +32,7 @@ pub fn save(name: &str, path: &str) {
         });
 
         configuration.save_to_file().unwrap();
+        println!("Workspace {} saved on paht \"{}\"", name, path);
     } else {
         let mut configuration = Configuration::new();
         configuration.workspaces.push(Workspace {
@@ -40,6 +41,7 @@ pub fn save(name: &str, path: &str) {
         });
 
         configuration.save_to_file().unwrap();
+        println!("Workspace {} saved on paht \"{}\"", name, path);
     }
 }
 
