@@ -4,60 +4,65 @@ mod configuration;
 mod workspace;
 
 fn main() {
-    let command = Command::new("wk")
+    let matches = Command::new("wk")
         .version("0.2.0")
         .about("WK is a CLI tool to create, manager and access workspaces")
         .author("Henry Barreto <me@henrybarreto.dev>")
-        .arg(
-            Arg::new("workspace")
-                .help("Workspaces name")
-                .exclusive(true)
-                .takes_value(true)
-                .value_name("WORKSPACE")
-                .index(1),
+        .propagate_version(true)
+        .subcommand_required(true)
+        .arg_required_else_help(true)
+        .subcommand(
+            Command::new("go").about("Go to a workspace").arg(
+                Arg::new("name")
+                    .help("The name of the workspace")
+                    .required(true)
+                    .index(1),
+            ),
         )
-        .arg(
-            Arg::new("save")
-                .short('s')
-                .long("save")
-                .help("Save a workspace")
-                .takes_value(true)
-                .multiple_occurrences(true)
-                .value_names(&["WOKRSPACE", "PATH"])
-                .exclusive(true),
+        .subcommand(
+            Command::new("save")
+                .about("Save a workspace")
+                .arg(
+                    Arg::new("name")
+                        .help("The name of the workspace")
+                        .required(true)
+                        .index(1),
+                )
+                .arg(
+                    Arg::new("path")
+                        .help("The path of the workspace")
+                        .required(true)
+                        .index(2),
+                ),
         )
-        .arg(
-            Arg::new("remove")
-                .short('r')
-                .long("remove")
-                .help("remove a workspace")
-                .takes_value(true)
-                .value_name("WORKSPACE")
-                .exclusive(true),
+        .subcommand(
+            Command::new("remove").about("Remove a workspace").arg(
+                Arg::new("name")
+                    .help("The name of the workspace")
+                    .required(true)
+                    .index(1),
+            ),
         )
-        .arg(
-            Arg::new("list")
-                .short('l')
-                .long("list")
-                .help("List workspaces")
-                .exclusive(true),
-        );
+        .subcommand(Command::new("list").about("List workspaces"))
+        .get_matches();
 
-    let matches = command.get_matches();
-    if matches.is_present("workspace") {
-        let workspace = matches.value_of("workspace").unwrap();
-        workspace::go(workspace)
-    } else if matches.is_present("save") {
-        let save = matches
-            .values_of("save")
-            .unwrap()
-            .into_iter()
-            .collect::<Vec<&str>>();
-        workspace::save(save[0], save[1]);
-    } else if matches.is_present("remove") {
-        let remove = matches.value_of("remove").unwrap();
-        workspace::remove(remove)
-    } else if matches.is_present("list") {
-        workspace::list()
+    match matches.subcommand() {
+        Some(("go", args)) => {
+            let name = args.value_of("name").unwrap();
+            workspace::go(name);
+        }
+        Some(("save", args)) => {
+            let name = args.value_of("name").unwrap();
+            let path = args.value_of("path").unwrap();
+            workspace::save(name, path);
+        }
+        Some(("remove", args)) => {
+            let name = args.value_of("name").unwrap();
+            workspace::remove(name);
+        }
+        Some(("list", _)) => {
+            workspace::list();
+        }
+        _ => unreachable!("Exhausted list of subcommands and subcommand_required prevents `None`"),
     }
 }

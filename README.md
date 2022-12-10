@@ -34,30 +34,30 @@ make install
 **Save a workspace**
 
 ```sh
-wk --save go ~/Documents/Projects/Go
+wk save home $(pwd)
 ```
 
 **Go to a saved workspace**
 
 ```sh
-wk go
+wk go home
 ```
 
 **Remove a saved workspace**
 
 ```sh
-wk --remove go
+wk remove home
 ```
 
 **Show saved workspaces**
 ```sh
-wk --list
+wk list
 ```
 > not implemented yet
 
 **Show usage**
 ```sh
-wk --help
+wk help
 ```
 
 ## How to configure
