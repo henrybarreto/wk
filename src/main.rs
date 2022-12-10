@@ -8,15 +8,22 @@ fn main() {
         .version("0.1.1")
         .about("WK is a CLI tool to create, manager and access workspaces")
         .author("Henry Barreto <me@henrybarreto.dev>")
-        .arg(Arg::new("workspace").help("Workspaces name").index(1))
+        .arg(
+            Arg::new("workspace")
+                .help("Workspaces name")
+                .exclusive(true)
+                .takes_value(true)
+                .value_name("WORKSPACE")
+                .index(1),
+        )
         .arg(
             Arg::new("save")
                 .short('s')
                 .long("save")
                 .help("Save a workspace")
                 .takes_value(true)
+                .multiple_occurrences(true)
                 .value_names(&["NAME", "PATH"])
-                .takes_value(true)
                 .exclusive(true),
         )
         .arg(
