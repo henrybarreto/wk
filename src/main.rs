@@ -16,6 +16,8 @@ fn main() {
                 Arg::new("name")
                     .help("The name of the workspace")
                     .required(true)
+                    .value_name("NAME")
+                    .value_hint(ValueHint::Other)
                     .index(1),
             ),
         )
@@ -26,12 +28,16 @@ fn main() {
                     Arg::new("name")
                         .help("The name of the workspace")
                         .required(true)
+                        .value_name("NAME")
+                        .value_hint(ValueHint::Other)
                         .index(1),
                 )
                 .arg(
                     Arg::new("path")
                         .help("The path of the workspace")
                         .required(true)
+                        .value_name("PATH")
+                        .value_hint(ValueHint::DirPath)
                         .index(2),
                 ),
         )
@@ -40,6 +46,8 @@ fn main() {
                 Arg::new("name")
                     .help("The name of the workspace")
                     .required(true)
+                    .value_name("NAME")
+                    .value_hint(ValueHint::Other)
                     .index(1),
             ),
         )
