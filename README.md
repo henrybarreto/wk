@@ -53,7 +53,6 @@ wk remove home
 ```sh
 wk list
 ```
-> not implemented yet
 
 **Show usage**
 ```sh

@@ -1,4 +1,4 @@
-use clap::{Arg, Command};
+use clap::{Arg, Command, ValueHint};
 
 mod configuration;
 mod workspace;

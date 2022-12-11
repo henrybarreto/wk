@@ -75,5 +75,11 @@ pub fn remove(name: &str) {
 }
 
 pub fn list() {
-    unimplemented!()
+    if let Ok(configuration) = Configuration::new_from_file() {
+        for workspace in configuration.workspaces {
+            println!("{}: \n\t{}", workspace.name, workspace.path);
+        }
+    } else {
+        println!("No workspaces saved");
+    }
 }
