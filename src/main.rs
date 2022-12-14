@@ -4,9 +4,10 @@ mod configuration;
 mod workspace;
 
 fn main() {
-    let matches = Command::new("wk")
-        .version("0.4.0")
-        .about("WK is a CLI tool to create, manager and access workspaces")
+    let matches = Command::new(env!("CARGO_PKG_NAME"))
+        .name(env!("CARGO_PKG_NAME"))
+        .version(env!("CARGO_PKG_VERSION"))
+        .about(env!("CARGO_PKG_DESCRIPTION"))
         .author("Henry Barreto <me@henrybarreto.dev>")
         .propagate_version(true)
         .subcommand_required(true)
