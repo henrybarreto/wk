@@ -5,8 +5,10 @@
 
 
 <p align="center">
-WK is a CLI tool to create, manage and access workspaces.
+Simplify your directory navigation with WK, the human go-to tool
 </p>
+
+WK is a command-line interface (CLI) tool that allows users to navigate to directories more easily by saving and managing "workspaces". A workspace consists of a name and a path and can be saved, removed, or listed by the user. The configuration of workspaces is stored in a file and can be loaded, modified, and saved by the WK application.
 
 ## How to install
 > In order to install `wk`, you need the `cargo` installed.
