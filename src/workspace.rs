@@ -1,27 +1,46 @@
+use std::fmt::Display;
+
 use crate::configuration::{Configuration, Workspace};
-use std::process::Command;
 
-pub fn go(name: &str) {
-    if let Ok(configuration) = Configuration::new_from_file() {
-        let workspace = configuration
-            .workspaces
-            .iter()
-            .find(|workspace| workspace.name == name);
+// TODO: implement std::error::Error.
+#[derive(Debug)]
+pub struct Error {
+    pub message: String,
+}
 
-        if let Some(workspace) = workspace {
-            println!("Going to {}", workspace.name);
-            Command::new("sh")
-                .arg("-c")
-                .arg(format!("cd {} && exec $SHELL", workspace.path))
-                .spawn()
-                .expect("Failed to execute process")
-                .wait_with_output()
-                .expect("Failed to wait for the exit");
-            println!("Exiting from {}", workspace.name)
-        } else {
-            println!("Workspace not found");
+impl Error {
+    pub fn new(message: &str) -> Error {
+        Error {
+            message: message.to_string(),
         }
     }
+}
+
+impl Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        return write!(f, "{}", self.message);
+    }
+}
+
+/// Gets a workspace from the configuration file by its name.
+pub fn get(name: &str) -> Result<Workspace, Error> {
+    let configuration = if let Ok(configuration) = Configuration::new_from_file() {
+        configuration
+    } else {
+        return Err(Error::new("Configuration file not found"));
+    };
+
+    return Ok(
+        if let Some(workspace) = configuration
+            .workspaces
+            .iter()
+            .find(|workspace| workspace.name == name)
+        {
+            workspace.clone()
+        } else {
+            return Err(Error::new("Workspace not found"));
+        },
+    );
 }
 
 pub fn save(name: &str, path: &str) {
@@ -74,12 +93,14 @@ pub fn remove(name: &str) {
     }
 }
 
-pub fn list() {
+pub fn list() -> Result<(), Error> {
     if let Ok(configuration) = Configuration::new_from_file() {
-        for workspace in configuration.workspaces {
+        configuration.workspaces.iter().for_each(|workspace| {
             println!("{}: \n\t{}", workspace.name, workspace.path);
-        }
+        });
+
+        return Ok(());
     } else {
-        println!("No workspaces saved");
+        return Err(Error::new("No workspaces saved"));
     }
 }

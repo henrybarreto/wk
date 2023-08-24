@@ -1,3 +1,5 @@
+use std::process::exit;
+
 use clap::{Arg, Command, ValueHint};
 
 mod configuration;
@@ -58,7 +60,24 @@ fn main() {
     match matches.subcommand() {
         Some(("go", args)) => {
             let name = args.value_of("name").unwrap();
-            workspace::go(name);
+
+            if let Ok(workspace) = workspace::get(name) {
+                std::process::Command::new("sh")
+                    .arg("-c")
+                    .arg(format!("cd {} && exec $SHELL", workspace.path))
+                    .spawn()
+                    .expect("Failed to execute process")
+                    .wait_with_output()
+                    .unwrap();
+
+                println!("Exited from {}", workspace.name);
+
+                exit(0);
+            } else {
+                println!("Workspace not found");
+
+                exit(1);
+            };
         }
         Some(("save", args)) => {
             let name = args.value_of("name").unwrap();
@@ -70,7 +89,11 @@ fn main() {
             workspace::remove(name);
         }
         Some(("list", _)) => {
-            workspace::list();
+            if let Err(err) = workspace::list() {
+                println!("{}", err);
+
+                exit(1);
+            }
         }
         _ => unreachable!("Exhausted list of subcommands and subcommand_required prevents `None`"),
     }
